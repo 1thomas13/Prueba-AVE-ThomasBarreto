@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
 import './App.css'
-import { Problem } from './pages/problem1/Problem'
+import { Problem1 } from './pages/problem1/Problem1'
+import { Problem2 } from './pages/problem2/Problem2'
 
 
 const Hds1 = () => {
@@ -38,8 +39,8 @@ function App() {
         
         <Routes>
         <Route path='/' element={<Menu/>} />
-          <Route path='/1' element={<Problem />} />
-          <Route path='/2' element={<Hds1 />} />
+          <Route path='/1' element={<Problem1 />} />
+          <Route path='/2' element={<Problem2 />} />
           <Route path='/3' element={<Hds1 />} />
           <Route path='/4' element={<Hds1 />} />
           <Route path='/5' element={<Hds1 />} />
