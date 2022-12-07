@@ -38,14 +38,14 @@ export const Problem2 = () => {
     setId(total)
   }
 
-  const handleSubmit4 = async(e) => {
+  const handleSubmit4 = async (e) => {
     e.preventDefault()
     console.log(idsearch)
     const total = await searchPokemonById(idsearch)
     setPokemon(total)
   }
 
-  const handleSubmit5 = async(e) => {
+  const handleSubmit5 = async (e) => {
     e.preventDefault()
     console.log(idsearch)
     const total = await searchPokemonFilter(arreglo)
@@ -53,7 +53,7 @@ export const Problem2 = () => {
     setExist(total)
   }
 
-  const handleSubmit6 = async(e) => {
+  const handleSubmit6 = async (e) => {
     e.preventDefault()
     console.log(idsearch)
     const total = await searchPokemonByTypeAndId(serachId,serachtype)
