@@ -3,6 +3,7 @@ import { Link, Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Problem1 } from './pages/problem1/Problem1'
 import { Problem2 } from './pages/problem2/Problem2'
+import { Problem6 } from './pages/problem6/Problem6'
 
 
 const Hds1 = () => {
@@ -44,7 +45,7 @@ function App() {
           <Route path='/3' element={<Hds1 />} />
           <Route path='/4' element={<Hds1 />} />
           <Route path='/5' element={<Hds1 />} />
-          <Route path='/6' element={<Hds1 />} />
+          <Route path='/6' element={<Problem6 />} />
           <Route path='/7' element={<Hds1 />} />
         </Routes>
         <Link to={'/'}>volver</Link>
