@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { findPokemon } from './services'
+import './index.css'
 
 export const Problem6 = () => {
 
@@ -12,6 +13,7 @@ export const Problem6 = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
+      setError(null)
       setPokemon({})
       setLoading(true)
       const poke = await findPokemon(value)
@@ -30,19 +32,26 @@ export const Problem6 = () => {
         <input onChange={ (e) => { setValue(e.target.value) }} value={value} type={'text'} placeholder={'Ingrese un Id/nombre'}></input>
         <button onClick={handleSubmit} type={'submit'}>Buscar</button>
         { pokemon.length > 0 ? pokemon.map((pok) => (
-          <div key={pok.id}>
-            {console.log(pok)}
-            <h3>{pok.id}</h3>
-            <h3>{pok.name}</h3>
-            <h3>{pok.id}</h3>
-            <h3>{pok.weight}</h3>
-            <h3>{pok.height}</h3>
-            <img src={pok.image} alt={pok.name} />
-          </div>
-        )) : null}
-        {error && <div>{error}</div>}
+          <card className='cardPokemon' key={pok.id}>
+            <div className='previewCard'>
+              <img src={pok.image} alt={pok.name} />
+              <h3>{pok.name} <span>N°{pok.id}</span> </h3>
+            </div>
+            <div className='content'>
+              {pok.types.map((type) => <div className='types' key={type.type.name}>
+                <span>{type.type.name}</span>
+              </div>)}
+              <h5>Peso {pok.weight} </h5>
+              <h5>Altura {pok.height} </h5>
+            </div>
+            
+            
+          </card>
+        )) : error && <div className={'cardPokemon'}>{<h2>{error}</h2>}</div>}
+        
         {loading && <div>cargando...</div>}
       </div>
     </div>
   )
 }
+

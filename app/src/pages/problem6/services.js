@@ -4,14 +4,14 @@ export const findPokemon = async (value) => {
   try {
     const res = await fetch(`${URL}/pokemon/${value}`)
     const { name, id, weight, types, height, sprites }  = await res.json()
-
+    
     const pokemon = {
       name,
       id,
       weight,
       types, 
       height, 
-      image: sprites.front_default
+      image: sprites.other.dream_world.front_default
     }
     
     return [pokemon]

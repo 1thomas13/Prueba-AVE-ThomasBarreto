@@ -4,6 +4,7 @@ import './App.css'
 import { Problem1 } from './pages/problem1/Problem1'
 import { Problem2 } from './pages/problem2/Problem2'
 import { Problem6 } from './pages/problem6/Problem6'
+import { Problem8 } from './pages/problem8/Problem8'
 
 
 const Hds1 = () => {
@@ -24,6 +25,7 @@ const Menu = () => {
     <Link className='link' to={"5"}>Ejercicio 5</Link>
     <Link className='link' to={"6"}>Ejercicio 6</Link>
     <Link className='link' to={"7"}>Ejercicio 7</Link>
+    <Link className='link' to={"8"}>Ejercicio 8</Link>
     <button onClick={() => setCount((count) => count + 1)}>
       count is {count}
     </button>
@@ -46,7 +48,8 @@ function App() {
           <Route path='/4' element={<Hds1 />} />
           <Route path='/5' element={<Hds1 />} />
           <Route path='/6' element={<Problem6 />} />
-          <Route path='/7' element={<Hds1 />} />
+          <Route path='/7' element={<Problem8 />} />
+          <Route path='/8' element={<Problem8 />} />
         </Routes>
         <Link to={'/'}>volver</Link>
       </div>
