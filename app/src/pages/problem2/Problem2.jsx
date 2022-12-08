@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { totalType, searchTotalPokemonsForType, searchPokemonByName, searchPokemonFilter, searchPokemonById, searchPokemonByTypeAndId } from './services'
 
 export const Problem2 = () => {
@@ -22,7 +23,7 @@ export const Problem2 = () => {
   const allTypes = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy", "unknown", "shadow"]
 
   const [pokemonsFiltered, setPokemonsFiltered] = useState([])
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState('')
 
   const handleSubmit = async(e) => {
     setTypeTotal('')
@@ -53,10 +54,10 @@ export const Problem2 = () => {
 
   const handleSubmit5 = async (e) => {
     e.preventDefault()
-    console.log(idsearch)
+    
     const total = await searchPokemonFilter(arreglo)
-    console.log(total)
-    setExist(total)
+    
+    setPokemonsFiltered(total)
   }
 
   const handleSubmit6 = async (e) => {
@@ -65,6 +66,57 @@ export const Problem2 = () => {
     const total = await searchPokemonByTypeAndId(serachId,serachtype)
     console.log(total)
     setExist(total)
+  }
+
+  const orderArray = (value, filtered) => {
+    
+    let arresa = filtered
+    if (value === 'weight') {
+      arresa = arresa.sort(function (a, b) {
+        if (a.value.weight < b.value.weight) {
+          return -1;
+        }
+        if (a.value.weight > b.value.weight) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    if (value === 'name') {
+      arresa = arresa.sort(function (a, b) {
+        if (a.value.name < b.value.name) {
+          return -1;
+        }
+        if (a.value.name > b.value.name) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    if (value === 'type') {
+      arresa = arresa.sort(function (a, b) {
+        if (a.value.types[0].type.name < b.value.types[0].type.name) {
+          return -1;
+        }
+        if (a.value.types[0].type.name > b.value.types[0].type.name) {
+          return 1;
+        }
+        return 0;
+      })
+    }
+    return arresa
+  }
+
+  const hola = (value) => {
+    setFilter(value)
+    let arrea = pokemonsFiltered
+    let filtered = arrea.filter((poke) => poke.status !==  "rejected")
+    console.log('filter', filtered)
+    filtered = orderArray(value, filtered)
+    console.log(filtered)
+    setPokemonsFiltered(filtered)
   }
 
   return (
@@ -119,22 +171,28 @@ export const Problem2 = () => {
 
       
       <div style={formStyle}>
-        <label>Ingrese id de pokemones</label>
+        <label>Ingrese varios pokemonId separados por un espacio para obtener los datos del mismo y podes filtrarlos luego</label>
         <input onChange={ (e) => { setArreglo(e.target.value) }} value={arreglo} type={'text'} placeholder={'Ingrese ids'}></input>
-        <select>
-          <option>No filtrar</option>
-          <option>nombre</option>
-          <option>tipo</option>
-          <option>peso</option>
+        <select onChange={ (e) => { hola(e.target.value) }} value={ filter }>
+          <option value=''>No filtrar</option> 
+          <option value='name'>nombre</option>
+          <option value='type'>tipo</option>
+          <option value='weight'>peso</option>
         </select>
-        <button onClick={handleSubmit5} type={'submit'}>Buscar</button>
-        <h2>El POKEMON CON EL ID { serachId } {exist === false ? 'No posee' : 'Si posee'} EL TIPO  { serachtype} </h2>
+        <button onClick={ handleSubmit5 } type={'submit'}>Buscar</button>
+        {pokemonsFiltered && pokemonsFiltered.map(({value, status}, index) => (
+          status === 'rejected' ? 'No se encontro' :
+        <div key={value.name + index }>
+          Nombre: <span style={{color: '#30c7f5'}}> { value.name } </span>  
+          Peso: <span style={{color: '#30c7f5'}}> { value.weight } </span>  
+          Tipo: <span style={{color: '#30c7f5'}}> { value.types.map(({ type }) => ` ${ type.name } `) }</span> 
+        </div>))}
       </div>
 
       <div style={formStyle}>
         <label>Ingrese un id y un tipo de pokemon para saber si este posee el mismo</label>
         <input onChange={ (e) => { setSerachtype(e.target.value) }} value={serachtype} type={'text'} placeholder={'Ingrese un tipo'}></input>
-        <input onChange={ (e) => { setSerachId(e.target.value) }} value={serachId} type={'number'} placeholder={'Ingrese un tipo'}></input>
+        <input onChange={ (e) => { setSerachId(e.target.value) }} value={serachId} type={'number'} placeholder={'Ingrese un ID'}></input>
         <button onClick={handleSubmit6} type={'submit'}>Buscar</button>
         {exist !== null && <h2>El pokemon {exist === false ? 'No posee' : 'Si posee'} el tipo </h2>}
       </div>
@@ -142,7 +200,6 @@ export const Problem2 = () => {
     </>
   )
 }
-
 
 const typeStyle  = {
   background: 'rgb(83, 86, 129)',

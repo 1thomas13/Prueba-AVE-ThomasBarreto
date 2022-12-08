@@ -61,7 +61,6 @@ export const searchPokemonFilter= async (array) => {
   try {
     console.log(array)
     let arreglo = array.split(' ')
-    console.log(arreglo)
 
     let pokemons = []
     
@@ -72,7 +71,7 @@ export const searchPokemonFilter= async (array) => {
     }
   
     const list = await Promise.allSettled(arreglo.map((element)=> pokemonsserrafdc(element)))
-
+    console.log(list)
     return list
     
   } catch (error) {
