@@ -18,8 +18,11 @@ export const Problem1 = () => {
 
   return (
     <div>
-      <input onChange={ (e) => { setFirstNumber(e.target.value) }} value={firstNumber} type={'number'} placeholder={'Ingrese un numero'}></input>
-      <input onChange={ (e) => { setSecondNumber(e.target.value) }} value={secondNumber} type={'number'} placeholder={'Ingrese un numero'} ></input>
+      <div style={{display:'flex'}}>
+        <input onChange={ (e) => { setFirstNumber(e.target.value) }} value={firstNumber} type={'number'} placeholder={'Ingrese un numero'}></input>
+        <input onChange={ (e) => { setSecondNumber(e.target.value) }} value={secondNumber} type={'number'} placeholder={'Ingrese un numero'} ></input>
+      </div>
+     
       <button onClick={handleSubmit} type={'submit'}>Multiplicar</button>
       <h2>Resultado: {result}</h2>
     </div>

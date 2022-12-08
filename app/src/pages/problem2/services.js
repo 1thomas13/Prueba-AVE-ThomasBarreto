@@ -24,8 +24,9 @@ export const searchTotalPokemonsForType = async (type1, type2) => {
     let [pokemonList1, pokemonList2] = await Promise.all([ pokemonsByType(type1), pokemonsByType(type2) ])
     
     const filteredPokemons = pokemonList1.filter((pokemonName) => pokemonList2.includes(pokemonName) )
+    if (filteredPokemons.length === 0) throw new Error(["No se encontro ninguno"])
 
-    return {value} = filteredPokemons
+    return filteredPokemons
   } catch (error) {
     return ["No se encontro ninguno"]
   }
@@ -36,7 +37,8 @@ export const searchPokemonByName= async (name) => {
   
     const res = await fetch(`${URL}/pokemon/${name}`)
     const {id} = await res.json()
-    console.log(id)
+    if (!id) return ("No se encontro ninguno")
+    
     return id
   } catch (error) {
     return ["No se encontro ninguno"]
@@ -47,11 +49,11 @@ export const searchPokemonById= async (id) => {
   try {
   
     const res = await fetch(`${URL}/pokemon/${id}`)
-    const {name, stats} = await res.json()
-
+    const { name, stats } = await res.json()
+    console.log(name, stats)
     return {name, stats}
   } catch (error) {
-    return ["No se encontro ninguno"]
+    return "No se encontro ninguno"
   }
 }
 
