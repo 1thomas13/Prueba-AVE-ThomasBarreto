@@ -28,7 +28,7 @@ button {
   height: 2rem;
   padding: 0 0.4rem;
   border-radius: 1.5rem;
-  border: 1px solid whitesmoke;
+  border: 2px solid white;
   background: #384874;
   color: #fff;
   display: block;
@@ -72,3 +72,6 @@ label {
   color: #b5bed3;
 }
 
+form {
+  margin-bottom: 50px;
+}

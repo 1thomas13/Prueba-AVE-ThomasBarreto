@@ -12,8 +12,6 @@ export const Problem8 = () => {
   const handleSubmit = () => {
     setImages([])
     for (let i = 0;i < imageQuantity;i++) {
-      console.log(i)
-      console.log(URL)
       setImages(images => [...images, URL + generateNumber()])
     }
   }

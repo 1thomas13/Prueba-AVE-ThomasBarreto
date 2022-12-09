@@ -12,7 +12,7 @@ export const totalType = async (type) => {
   }
 }
 
-export const searchTotalPokemonsForType = async (type1, type2) => {
+export const searchTotalPokemonsFor2Types = async (type1, type2) => {
   try {
   
     const pokemonsByType = async (type) => {
@@ -50,28 +50,24 @@ export const searchPokemonById= async (id) => {
   
     const res = await fetch(`${URL}/pokemon/${id}`)
     const { name, stats } = await res.json()
-    console.log(name, stats)
+
     return {name, stats}
   } catch (error) {
     return "No se encontro ninguno"
   }
 }
 
-export const searchPokemonFilter= async (array) => {
+export const searchArrayPokemons= async (pokemonArray) => {
   try {
-    console.log(array)
-    let arreglo = array.split(' ')
-
-    let pokemons = []
+    let arrayParsed = pokemonArray.replace(/\s+/g, '').split('')
     
-    const pokemonsserrafdc = async (element) => {
+    const pokemons= async (element) => {
       const res = await fetch(`${URL}/pokemon/${element}`)
       const {name, types, weight} = await res.json()
       return  {name, types, weight}
     }
   
-    const list = await Promise.allSettled(arreglo.map((element)=> pokemonsserrafdc(element)))
-    console.log(list)
+    const list = await Promise.allSettled(arrayParsed.map((element)=> pokemons(element)))
     return list
     
   } catch (error) {
@@ -84,8 +80,7 @@ export const searchPokemonByTypeAndId= async (id, typesa ) => {
   
     const res = await fetch(`${URL}/pokemon/${id}`)
     const { name,types } = await res.json()
-    console.log(name, types)
-    console.log(types[0].type.name)
+
     return types.some((type)=> type.type.name === typesa)
     
   } catch (error) {
